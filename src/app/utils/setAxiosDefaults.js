@@ -9,6 +9,8 @@ export function setAuthorizationToken(token) {
 }
 
 export function setBaseURL() {
-    axios.defaults.baseURL = 'http://localhost.com:3005';
-    axios.defaults.headers.post['Content-Type'] = 'application/vnd.api+json';
+    axios.defaults.baseURL = 'http://localhost:8080';
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['Content-Type'] = 'application/json';
+    axios.defaults.headers.common['Accept'] = 'application/json';
 }
