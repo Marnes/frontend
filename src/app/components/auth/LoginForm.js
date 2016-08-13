@@ -39,7 +39,6 @@ class LoginForm extends React.Component {
 
     navigateToRegister(e) {
         e.preventDefault();
-
         this.context.router.push('/register')
     }
 

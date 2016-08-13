@@ -41,7 +41,6 @@ class RegisterForm extends React.Component {
 
     navigateToHome(e) {
         e.preventDefault();
-
         this.context.router.push('/')
     }
 
