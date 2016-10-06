@@ -1,11 +1,12 @@
 import {SET_CURRENT_USER} from '../constants/authConstants'
+import { isEmpty } from 'lodash'
 
 const initialState = {
-    user: {},
-    isAuthenticated: false
+    isAuthenticated: false,
+    user: {}
 };
 
-const authReducer = (state = initialState, action = {}) => {
+export default (state = initialState, action = {}) => {
     switch (action.type) {
         case SET_CURRENT_USER:
             return {
@@ -16,5 +17,3 @@ const authReducer = (state = initialState, action = {}) => {
             return state
     }
 };
-
-export default authReducer;

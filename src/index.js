@@ -25,7 +25,6 @@ const store = createStore(
 setBaseURL();
 setAuthorizationToken(localStorage.jwtToken);
 
-
 ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory} routes={routes}/>

@@ -14,13 +14,14 @@ class RegisterForm extends React.Component {
             email: '',
             password: '',
             name: '',
-            surname: ''
+            surname: '',
+            errors: {},
+            isLoading: false
         };
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.navigateToHome = this.navigateToHome.bind(this);
-        this.isValid = this.isValid.bind(this);
     }
 
     onChange(e) {
@@ -30,23 +31,16 @@ class RegisterForm extends React.Component {
     onSubmit(e) {
         e.preventDefault();
 
-        if (this.isValid()) {
-            this.setState({errors: {}, isLoading: false});
-            this.props.userRegisterRequest(this.state).then(
-                (res) => alert('REGISTERED'),
-                (err) => alert('SOMETHING WENT WRONG')
-            );
-        }
+        this.setState({errors: {}, isLoading: true});
+        this.props.userRegisterRequest(this.state).then(
+            (res) => this.setState({isLoading: false}),
+            (err) => this.setState({errors: err.response.data, isLoading: false})
+        );
     }
 
     navigateToHome(e) {
         e.preventDefault();
         this.context.router.push('/')
-    }
-
-
-    isValid() {
-        return true;
     }
 
     render() {
@@ -55,19 +49,19 @@ class RegisterForm extends React.Component {
                 <div className="register-container">
                     <div className="input large">
                         <TextField floatingLabelText="Email address" name="email" value={this.state.email}
-                                   onChange={this.onChange}/>
+                                   onChange={this.onChange} errorText={this.state.errors.email}/>
                     </div>
                     <div className="input large">
                         <TextField floatingLabelText="Password" name="password" type="password"
-                                   value={this.state.password} onChange={this.onChange}/>
+                                   value={this.state.password} onChange={this.onChange} errorText={this.state.errors.password}/>
                     </div>
                     <div className="input large">
                         <TextField floatingLabelText="Name" name="name"
-                                   value={this.state.name} onChange={this.onChange}/>
+                                   value={this.state.name} onChange={this.onChange} errorText={this.state.errors.name}/>
                     </div>
                     <div className="input large">
                         <TextField floatingLabelText="Surname" name="surname"
-                                   value={this.state.surname} onChange={this.onChange}/>
+                                   value={this.state.surname} onChange={this.onChange} errorText={this.state.errors.surname}/>
                     </div>
                     <div className="auth-actions">
                         <RaisedButton label="Register" primary={true} type="submit" disabled={this.state.isLoading}/>
